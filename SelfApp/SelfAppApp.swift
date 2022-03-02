@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct SelfAppApp: App {
+    
+    @StateObject var viewModel: ViewModel = ViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                OBWelcomeView()
+            }
+            .statusBar(hidden: true)
+            .environmentObject(viewModel)
         }
     }
 }
