@@ -18,7 +18,7 @@ struct DataMonth: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .stroke(Color("Gray500"), lineWidth: 2)
+                .stroke(Color("GradientEnd500"), lineWidth: 2)
             
             HStack {
                 Text(text)

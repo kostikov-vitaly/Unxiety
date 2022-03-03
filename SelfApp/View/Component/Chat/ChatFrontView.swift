@@ -72,28 +72,46 @@ struct ChatFrontView: View {
                                 .frame(width: 40, height: 40)
                                 .padding(.leading, 20)
                                 .clipShape(Circle())
+                                .onTapGesture {
+                                    
+                                    viewModel.currentUser.tempMessage = text
+                                    
+                                    withAnimation(.easeOut(duration: 0.2)) {
+                                        UIApplication.shared.endEditing()
+                                    }
+                                    
+                                    withAnimation() {
+                                        viewModel.pushMessage(text: text)
+                                    }
+                                    
+                                    text = ""
+                                }
                             Circle()
                                 .stroke(Color("GradientEnd"), lineWidth: 2)
                                 .frame(width: 40, height: 40)
+                                .onTapGesture {
+                                    
+                                    viewModel.currentUser.tempMessage = text
+                                    
+                                    withAnimation(.easeOut(duration: 0.2)) {
+                                        UIApplication.shared.endEditing()
+                                    }
+                                    
+                                    withAnimation() {
+                                        viewModel.pushMessage(text: text)
+                                    }
+                                    
+                                    text = ""
+                                }
                         } else {
                             Circle()
                                 .stroke(Color("Gray500"), lineWidth: 2)
                                 .frame(width: 40, height: 40)
-                                .onTapGesture {
-                                    viewModel.currentUser.tempMessage = text
-//                                    viewModel.pushMessage(text: text)
-                                    viewModel.currentUser.tempMessage = ""
-                                }
                             Circle()
                                 .fill(Color("GradientEnd").opacity(0))
                                 .frame(width: 40, height: 40)
                                 .padding(.leading, 20)
                                 .clipShape(Circle())
-                                .onTapGesture {
-                                    viewModel.currentUser.tempMessage = text
-//                                    viewModel.pushMessage(text: text)
-                                    viewModel.currentUser.tempMessage = ""
-                                }
                         }
                         
                         Image(systemName: "chevron.right")

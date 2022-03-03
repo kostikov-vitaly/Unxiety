@@ -19,19 +19,18 @@ struct DiaryView: View {
             ScrollView {
                 ForEach(viewModel.months) { month in
                     DiaryMonth(month: month)
-                        .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)))
+                        .padding(.vertical, 1)
                 }
                 .padding(.horizontal, 20)
+                .padding(.vertical, 2)
             }
             
             Spacer()
             
             if !viewModel.isDiaryFlipped {
                 ChatFrontView()
-                    .transition(.opacity)
             } else {
                 ChatBackView()
-                    .transition(.opacity)
             }
         }
         .ignoresSafeArea(.container, edges: .bottom)

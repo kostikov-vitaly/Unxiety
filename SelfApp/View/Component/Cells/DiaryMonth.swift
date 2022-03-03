@@ -12,35 +12,92 @@ struct DiaryMonth: View {
     // viewModel binding
     @EnvironmentObject var viewModel: ViewModel
     
-    var month: Month = Month(title: "", messages: [Message(text: "", date: "")], isExpanded: false)
+    @State var month: Month = Month(title: "", messages: [Message(text: "", date: "")], isExpanded: false)
     var title: String {
         month.title
     }
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(Color("Gray500"), lineWidth: 2)
+        VStack(alignment: .leading, spacing: 8) {
             
-            HStack {
+            HStack(alignment: .center) {
                 Text(title)
                     .font(.custom("DM Sans", size: 15))
                     .fontWeight(.medium)
                     .foregroundColor(Color("Gray900"))
-                    .frame(width: 200, alignment: .leading)
-                
                 Spacer()
-                
                 Image(systemName: "chevron.forward")
                     .font(.system(size: 14, weight: .semibold))
                     .rotationEffect(.degrees(90))
                     .foregroundColor(Color("Gray900"))
-                    .frame(width: 14, alignment: .trailing)
             }
             .padding(.vertical, 16)
             .padding(.horizontal, 16)
+            .overlay(RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color("GradientEnd500"), lineWidth: 2))
+            .onTapGesture {
+
+                withAnimation(.easeInOut(duration: 0)) {
+                    month.isExpanded.toggle()
+                }
+            }
+            
+            if month.isExpanded {
+                Group {
+                    ForEach(month.messages, id: \.id) { message in
+                        MessageView(message: message)
+                    }
+                }
+            }
+            
         }
-        .padding(.vertical, 1)
+        
+        //        ZStack {
+        //            Color("White")
+        //
+        //            VStack {
+        //                ZStack {
+        //
+        //                    Color("White")
+        //
+        //                    RoundedRectangle(cornerRadius: 10)
+        //                        .stroke(Color("GradientEnd500"), lineWidth: 2)
+        //
+        //                    HStack {
+        //                        Text(title)
+        //                            .font(.custom("DM Sans", size: 15))
+        //                            .fontWeight(.medium)
+        //                            .foregroundColor(Color("Gray900"))
+        //                            .frame(width: 200, alignment: .leading)
+        //
+        //                        Spacer()
+        //
+        //                        Image(systemName: "chevron.forward")
+        //                            .font(.system(size: 14, weight: .semibold))
+        //                            .rotationEffect(.degrees(90))
+        //                            .foregroundColor(Color("Gray900"))
+        //                            .frame(width: 14, alignment: .trailing)
+        //                    }
+        //                    .padding(.vertical, 16)
+        //                    .padding(.horizontal, 16)
+        //                }
+//                        .onTapGesture {
+//
+//                            withAnimation(.easeInOut(duration: 0)) {
+//                                month.isExpanded.toggle()
+//                            }
+//                        }
+        //
+        //                if month.isExpanded {
+        //                    ForEach(month.messages, id: \.id) { message in
+        //                        MessageView(message: message)
+        //                    }
+        //
+        //                }
+        //            }
+        //        }
+        //        .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)))
+        //        .padding(.vertical, 1)
     }
 }
 

@@ -18,6 +18,7 @@ struct DataView: View {
                 DataMonth(text: month, cACount: Int.random(in: 1...50))
             }
             .padding(.horizontal, 20)
+            .padding(.vertical, 2)
         }
     }
 }

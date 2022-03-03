@@ -45,75 +45,75 @@ class ViewModel: ObservableObject {
         Month(
             title: "October 2021",
             messages: [
-            Message(text: "Had flight to Dubai", date: "18/10"),
-            Message(text: "Finish our work in time", date: "20/10"),
-            Message(text: "Spent 4 hours with family", date: "21/10"),
-            Message(text: "Learn how to play billiard", date: "22/10")
-        ]),
+                Message(text: "Had flight to Dubai", date: "18/10"),
+                Message(text: "Finish our work in time", date: "20/10"),
+                Message(text: "Spent 4 hours with family", date: "21/10"),
+                Message(text: "Learn how to play billiard", date: "22/10")
+            ]),
         
         Month(
             title: "November 2021",
             messages: [
-            Message(text: "Had flight to Dubai", date: "18/11"),
-            Message(text: "Finish our work in time", date: "20/11"),
-            Message(text: "Spent 4 hours with family", date: "21/11"),
-            Message(text: "Learn how to play billiard", date: "22/11")
-        ]),
+                Message(text: "Had flight to Dubai", date: "18/11"),
+                Message(text: "Finish our work in time", date: "20/11"),
+                Message(text: "Spent 4 hours with family", date: "21/11"),
+                Message(text: "Learn how to play billiard", date: "22/11")
+            ]),
         
         Month(
             title: "December 2021",
             messages: [
-            Message(text: "Had flight to Dubai", date: "18/12"),
-            Message(text: "Finish our work in time", date: "20/12"),
-            Message(text: "Spent 4 hours with family", date: "21/12"),
-            Message(text: "Learn how to play billiard", date: "22/12")
-        ]),
+                Message(text: "Had flight to Dubai", date: "18/12"),
+                Message(text: "Finish our work in time", date: "20/12"),
+                Message(text: "Spent 4 hours with family", date: "21/12"),
+                Message(text: "Learn how to play billiard", date: "22/12")
+            ]),
         
         Month(
             title: "January 2022",
             messages: [
-            Message(text: "Had flight to Dubai", date: "18/01"),
-            Message(text: "Finish our work in time", date: "20/01"),
-            Message(text: "Spent 4 hours with family", date: "21/01"),
-            Message(text: "Learn how to play billiard", date: "22/01")
-        ]),
+                Message(text: "Had flight to Dubai", date: "18/01"),
+                Message(text: "Finish our work in time", date: "20/01"),
+                Message(text: "Spent 4 hours with family", date: "21/01"),
+                Message(text: "Learn how to play billiard", date: "22/01")
+            ]),
         
         Month(
             title: "February 2022",
             messages: [
-            Message(text: "Had flight to Dubai", date: "18/02"),
-            Message(text: "Finish our work in time", date: "20/02"),
-            Message(text: "Spent 4 hours with family", date: "21/02"),
-            Message(text: "Learn how to play billiard", date: "22/02")
-        ])
+                Message(text: "Had flight to Dubai", date: "18/02"),
+                Message(text: "Finish our work in time", date: "20/02"),
+                Message(text: "Spent 4 hours with family", date: "21/02"),
+                Message(text: "Learn how to play billiard", date: "22/02")
+            ])
     ]
     
-    func pushMessage() {
+    func pushMessage(text: String) {
         
         let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy"
-        let yearString = dateFormatter.string(from: date)
+        let dateFormatterMonth = DateFormatter()
         
-        dateFormatter.dateFormat = "LLLL"
-        let nameOfMonth = dateFormatter.string(from: date)
+        dateFormatterMonth.dateFormat = "yyyy"
+        let yearString = dateFormatterMonth.string(from: date)
         
-        let currentDate = nameOfMonth + " " + yearString
-        let shortDate = Date.now.formatted(date: .abbreviated, time: .omitted)
-        print(currentDate)
-        print(shortDate)
+        dateFormatterMonth.dateFormat = "LLLL"
+        let nameOfMonth = dateFormatterMonth.string(from: date)
         
-//        guard let index = months.firstIndex(where: { $0.title == currentDate }) else {
-//            months.append(
-//                Month(title: currentDate,
-//                      messages: [Message(text: currentUser.tempMessage, date: shortDate)],
-//                      isExpanded: true))
-//            currentUser.tempMessage = ""
-//            return
-//        }
-//        
-//        let message = Message(text: currentUser.tempMessage, date: "\(Date.now.formatted(date: .abbreviated, time: .omitted))")
-//        let messages = months[index].messages
-//        months[index] = Month(date: currentDate, messages: messages + [subtask], isExpanded: true)
+        let currentMonth = nameOfMonth + " " + yearString // March 2022
+        
+        let dateFormatterDate = DateFormatter()
+        dateFormatterDate.dateFormat = "MM/dd"
+        
+        let currentDate = dateFormatterDate.string(from: date) // 03/03
+        
+        guard let index = months.firstIndex(where: {$0.title == currentMonth}) else {
+            months.append(Month(title: currentMonth, messages: [Message(text: text, date: currentDate)], isExpanded: true))
+            return
+        }
+        
+        let message = Message(text: text, date: currentDate)
+        let messages = months[index].messages
+        months[index] = Month(title: currentMonth, messages: messages + [message], isExpanded: true)
+        currentUser.tempMessage = ""
     }
 }
