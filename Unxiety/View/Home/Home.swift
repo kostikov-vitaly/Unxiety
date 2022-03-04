@@ -47,7 +47,7 @@ struct Home: View {
                 
                 HomeHeader(title: screenType == .diary ? HeaderContent.content[0].title : HeaderContent.content[1].title)
                 
-                VStack(spacing: 32) {
+                VStack(spacing: 20) {
                     
                     NavigationLink(destination: GoalView(goal: viewModel.currentUser.userGoal)) {
                         GoalPanelView().frame(height: 32)
@@ -61,8 +61,12 @@ struct Home: View {
                     .pickerStyle(.segmented)
                     
                 }
-                .padding(.bottom, 16)
+                .padding(.bottom, 10)
                 .padding(.horizontal, 20)
+                
+                Rectangle()
+                    .fill(Color("Gray100"))
+                    .frame(height: 2)
                 
                 switch screenType {
                 case .diary:

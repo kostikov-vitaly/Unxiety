@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct SelfAppApp: App {
+struct UnxietyApp: App {
     
     @StateObject var viewModel: ViewModel = ViewModel()
     

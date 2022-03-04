@@ -36,6 +36,7 @@ struct OBHowToUseView: View {
                             OBDescr(descr: OBContent.content[2].descr4 ?? "")
                         }
                     }
+                    .padding(.bottom, 20)
                     
                     Spacer()
                     
