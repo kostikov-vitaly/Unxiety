@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class ViewModel: ObservableObject {
     
@@ -17,10 +18,15 @@ class ViewModel: ObservableObject {
     
     // home
     @Published var isDiaryFlipped: Bool = false
+    @Published var scrollProxy: ScrollViewProxy? = nil
     
     // goal
     @Published var isGoalEditPresented: Bool = false
     @Published var isSubTargetVisible: Bool = true
+    
+    func onload() {
+        months[months.endIndex - 1].isExpanded = true
+    }
     
     // message processing
     func saveTempMessage(message: String) {
@@ -39,6 +45,56 @@ class ViewModel: ObservableObject {
     func hideGoalEditing(goal: String) {
         saveGoal(goal: goal)
         isGoalEditPresented = false
+    }
+    
+    func scrollToMonthBottom(month: Month) {
+        
+        scrollProxy?.scrollTo(month.id, anchor: .bottomTrailing)
+    }
+    
+    func scrollToBottom(proxy: ScrollViewProxy) {
+        scrollProxy = proxy
+        scrollProxy?.scrollTo(months.last?.id, anchor: .bottomTrailing)
+    }
+    
+//    func collapseAllMonths() {
+//        months.indices.forEach { index in
+//            months[index].isExpanded = true
+//        }
+//    }
+//
+//    func expandMonth(month: Month) {
+//        guard let index = months.firstIndex( where: {$0.id == month.id} ) else { return }
+//        months[index].isExpanded = true
+//    }
+    
+    func pushMessage(text: String) {
+        
+        let date = Date()
+        let dateFormatterMonth = DateFormatter()
+        
+        dateFormatterMonth.dateFormat = "yyyy"
+        let yearString = dateFormatterMonth.string(from: date)
+        
+        dateFormatterMonth.dateFormat = "LLLL"
+        let nameOfMonth = dateFormatterMonth.string(from: date).capitalized(with: .current)
+        
+        let currentMonth = nameOfMonth + " " + yearString // March 2022
+        
+        let dateFormatterDate = DateFormatter()
+        dateFormatterDate.dateFormat = "dd/MM"
+        
+        let currentDate = dateFormatterDate.string(from: date) // 03/03
+        
+        guard let index = months.firstIndex(where: {$0.title == currentMonth}) else {
+            months.append(Month(title: currentMonth, messages: [Message(text: text, date: currentDate)], isExpanded: true))
+            return
+        }
+        
+        let message = Message(text: text, date: currentDate)
+        let messages = months[index].messages
+        months[index] = Month(title: currentMonth, messages: messages + [message], isExpanded: true)
+        currentUser.tempMessage = ""
     }
     
     @Published var months: [Month] = [
@@ -141,7 +197,7 @@ class ViewModel: ObservableObject {
                 Message(text: NSLocalizedString("Spent 4 hours with family", comment: ""), date: "21/02"),
                 Message(text: NSLocalizedString("Learn how to play billiard", comment: ""), date: "22/02")
             ]),
-        
+
         Month(
             title: NSLocalizedString("March", comment: "") + " 2022",
             messages: [
@@ -149,37 +205,6 @@ class ViewModel: ObservableObject {
                 Message(text: NSLocalizedString("Finish our work in time", comment: ""), date: "01/03"),
                 Message(text: NSLocalizedString("Spent 4 hours with family", comment: ""), date: "02/03"),
                 Message(text: NSLocalizedString("Learn how to play billiard", comment: ""), date: "03/03")
-            ],
-            isExpanded: true
-        )
+            ])
     ]
-    
-    func pushMessage(text: String) {
-        
-        let date = Date()
-        let dateFormatterMonth = DateFormatter()
-        
-        dateFormatterMonth.dateFormat = "yyyy"
-        let yearString = dateFormatterMonth.string(from: date)
-        
-        dateFormatterMonth.dateFormat = "LLLL"
-        let nameOfMonth = dateFormatterMonth.string(from: date).capitalized(with: .current)
-        
-        let currentMonth = nameOfMonth + " " + yearString // March 2022
-        
-        let dateFormatterDate = DateFormatter()
-        dateFormatterDate.dateFormat = "dd/MM"
-        
-        let currentDate = dateFormatterDate.string(from: date) // 03/03
-        
-        guard let index = months.firstIndex(where: {$0.title == currentMonth}) else {
-            months.append(Month(title: currentMonth, messages: [Message(text: text, date: currentDate)], isExpanded: true))
-            return
-        }
-        
-        let message = Message(text: text, date: currentDate)
-        let messages = months[index].messages
-        months[index] = Month(title: currentMonth, messages: messages + [message], isExpanded: true)
-        currentUser.tempMessage = ""
-    }
 }

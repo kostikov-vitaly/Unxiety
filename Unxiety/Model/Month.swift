@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Month: Identifiable {
+struct Month: Identifiable, Hashable {
     let id: UUID = UUID()
     let title: String
     var messages: [Message]

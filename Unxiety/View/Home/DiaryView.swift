@@ -15,21 +15,27 @@ struct DiaryView: View {
     var body: some View {
         
         VStack {
-            
             ScrollView {
-                ScrollViewReader { value in
-                    
+                ScrollViewReader { proxy in
                     ForEach(viewModel.months) { month in
                         DiaryMonth(month: month)
                             .padding(.vertical, 1)
+                            .id(month.id)
                     }
-                    .onChange(of: viewModel.months.count, perform: { _ in
-                        value.scrollTo(viewModel.months.count - 1)
+                    
+                    .onAppear() {
+                        viewModel.scrollToBottom(proxy: proxy)
+                    }
+                    
+                    .onChange(of: viewModel.months, perform: { _ in
+                        withAnimation() {
+                            viewModel.scrollToBottom(proxy: proxy)
+                        }
                     })
+                    
                     .padding(.horizontal, 20)
                     .padding(.vertical, 2)
                     .padding(.bottom, 8)
-                    
                 }
             }
             

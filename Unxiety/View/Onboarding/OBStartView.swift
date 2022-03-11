@@ -22,8 +22,12 @@ struct OBStartView: View {
                     
                     OBHeader()
                     VStack(alignment: .leading, spacing: 20) {
+                        
                         OBTitle(title: OBContent.content[1].title)
+                        
                         OBDescr(descr: OBContent.content[1].descr ?? "")
+                        OBLeaf()
+                        OBDescr(descr: OBContent.content[1].descr2 ?? "")
                         
                     }
                     

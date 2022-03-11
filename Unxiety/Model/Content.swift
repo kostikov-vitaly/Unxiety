@@ -48,14 +48,14 @@ extension OBContent {
         OBContent(
             title: NSLocalizedString("Grow your self-gratitude with Unxiety", comment: ""),
             descr: NSLocalizedString("Unxiety is a gratitude diary which helps you to grow your self-gratitude, positivity, and optimism", comment: ""),
+            descr2: NSLocalizedString("Grow you self-gratitude by creating reflections with positive emotions you feel right now or felt a few days ago.", comment: ""),
             button: NSLocalizedString("Continue", comment: "")),
         
         OBContent(
             title: NSLocalizedString("Unxiety is easy to use", comment: ""),
-            descr: NSLocalizedString("Grow you self-gratitude by creating reflections with positive emotions you feel right now or felt a few days ago.", comment: ""),
-            descr2: NSLocalizedString("Use the diary to sum up your good feelings. Don’t try to proceed with only big appreciations - in contrast, pay more attention to the small ones.", comment: ""),
-            descr3: NSLocalizedString("Follow your activity status using statistics for better understanding if your life goal meets your reflections with the help of a tag system, created by you.", comment: ""),
-            descr4: NSLocalizedString("Please note, Unxiety is not a psychological help service and cannot provide any psychological help on the subject. Having any condition, it is highly recommended to see your doctor", comment: ""),
+            descr: NSLocalizedString("Use the diary to sum up your good feelings. Don’t try to proceed with only big appreciations - in contrast, pay more attention to the small ones.", comment: ""),
+            descr2: NSLocalizedString("Follow your activity status using statistics for better understanding if your life goal meets your reflections with the help of a tag system, created by you.", comment: ""),
+            descr3: NSLocalizedString("Please note, Unxiety is not a psychological help service and cannot provide any psychological help on the subject. Having any condition, it is highly recommended to see your doctor", comment: ""),
             button: NSLocalizedString("Continue", comment: "")),
         
         OBContent(

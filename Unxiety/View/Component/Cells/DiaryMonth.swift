@@ -18,7 +18,7 @@ struct DiaryMonth: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        LazyVStack(alignment: .leading, spacing: 8) {
             
             HStack(alignment: .center) {
                 Text(title)
@@ -35,10 +35,16 @@ struct DiaryMonth: View {
             .padding(.horizontal, 16)
             .overlay(RoundedRectangle(cornerRadius: 10)
                         .stroke(Color("GradientEnd500"), lineWidth: 2))
+            
             .onTapGesture {
-
-                withAnimation(.easeInOut(duration: 0)) {
-                    month.isExpanded.toggle()
+                month.isExpanded.toggle()
+                
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    if month.isExpanded == true {
+                        viewModel.scrollToMonthBottom(month: month)
+                    }
+                    
+//                    viewModel.collapseAllMonths()
                 }
             }
             
@@ -49,55 +55,7 @@ struct DiaryMonth: View {
                     }
                 }
             }
-            
         }
-        
-        //        ZStack {
-        //            Color("White")
-        //
-        //            VStack {
-        //                ZStack {
-        //
-        //                    Color("White")
-        //
-        //                    RoundedRectangle(cornerRadius: 10)
-        //                        .stroke(Color("GradientEnd500"), lineWidth: 2)
-        //
-        //                    HStack {
-        //                        Text(title)
-        //                            .font(.custom("DM Sans", size: 15))
-        //                            .fontWeight(.medium)
-        //                            .foregroundColor(Color("Gray900"))
-        //                            .frame(width: 200, alignment: .leading)
-        //
-        //                        Spacer()
-        //
-        //                        Image(systemName: "chevron.forward")
-        //                            .font(.system(size: 14, weight: .semibold))
-        //                            .rotationEffect(.degrees(90))
-        //                            .foregroundColor(Color("Gray900"))
-        //                            .frame(width: 14, alignment: .trailing)
-        //                    }
-        //                    .padding(.vertical, 16)
-        //                    .padding(.horizontal, 16)
-        //                }
-//                        .onTapGesture {
-//
-//                            withAnimation(.easeInOut(duration: 0)) {
-//                                month.isExpanded.toggle()
-//                            }
-//                        }
-        //
-        //                if month.isExpanded {
-        //                    ForEach(month.messages, id: \.id) { message in
-        //                        MessageView(message: message)
-        //                    }
-        //
-        //                }
-        //            }
-        //        }
-        //        .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)))
-        //        .padding(.vertical, 1)
     }
 }
 

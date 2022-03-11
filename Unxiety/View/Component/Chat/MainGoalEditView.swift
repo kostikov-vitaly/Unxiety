@@ -99,7 +99,7 @@ struct MainGoalEditView: View {
             .padding(.horizontal, 20)
         }
         .frame(height: focusedField == .goal ? 96 : 120)
-        .transition(.asymmetric(insertion: .move(edge: .top), removal: .opacity))
+//        .transition(.asymmetric(insertion: .move(edge: .top), removal: .opacity))
     }
 }
 

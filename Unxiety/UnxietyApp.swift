@@ -1,6 +1,6 @@
 //
-//  SelfAppApp.swift
-//  SelfApp
+//  UnxietyApp.swift
+//  Unxiety
 //
 //  Created by Vitaly on 22/02/22.
 //
@@ -17,6 +17,12 @@ struct UnxietyApp: App {
             NavigationView {
                 OBWelcomeView()
             }
+            
+            //onload function
+            .onAppear(perform: {
+                viewModel.onload()
+            })
+            
             .statusBar(hidden: true)
             .environmentObject(viewModel)
         }

@@ -101,7 +101,7 @@ struct GoalView: View {
                 Spacer(minLength: 24)
                 
                 if viewModel.isGoalEditPresented {
-                    MainGoalEditView(goal: $goal).transition(.opacity)
+                    MainGoalEditView(goal: $goal)
                 } else {
                     EmptyView()
                 }
